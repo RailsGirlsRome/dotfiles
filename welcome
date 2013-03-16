@@ -64,3 +64,4 @@ if [ ! "$interactive" ]; then
 fi
 
 echo -e "[1;32mHave fun! :-)[0m"
+echo
