@@ -27,6 +27,10 @@ if fetch
   #git :checkout => '-b complete origin/complete'
   #git :checkout => 'master'
 
+  run 'bundle'
+  run 'rm public/index.html'
+  rake 'db:setup'
+
 else
   ################################################################
   # Initialize a new app
