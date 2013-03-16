@@ -30,12 +30,13 @@ configure_git() {
 
 }
 
-cat ~/.railsgirls/banner
+if [ ! "$interactive" ]; then
+  cat ~/.railsgirls/banner
 
-echo
-echo
-echo -e "\033[1;31m❤ ❤ ❤\033[0m Welcome $user_name! \033[1;31m❤ ❤ ❤\033[0m"
-echo
+  echo
+  echo -e "\033[1;31m❤ ❤ ❤\033[0m Welcome $user_name! \033[1;31m❤ ❤ ❤\033[0m"
+  echo
+fi
 
 configure_git
 
