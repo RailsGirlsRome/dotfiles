@@ -52,6 +52,7 @@ If you see hearts, it worked.
 Caveats
 -------
 
-This installs `~/.pryrc`, `~/.railsrc` and `~/.rails.tpl`,
-so if you already have these files with your customizations,
-your best bet is to create another user.
+This installs `~/.pryrc`, `~/.railsrc`, `~/.rails.tpl` and
+Git configurations - so as you may already have these files
+with your customizations, your best bet is to create another
+user on your machine.

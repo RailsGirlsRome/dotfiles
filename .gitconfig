@@ -1,0 +1,65 @@
+[user]
+  email = info@railsgirls.com
+  name = Rails Girls Engine
+[core]
+  whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+  excludesfile=~/.gitignore
+[apply]
+  ignorewhitespace=change
+  whitespace=fix
+[color]
+  ui = auto
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red #bold
+  new = green #bold
+  whitespace = red reverse
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+[alias]
+  st = status
+  ci = commit
+  ca = commit --amend
+  fix = commit --amend -C HEAD
+  br = branch
+  co = checkout
+  df = diff
+  lp = log -p
+  lg = log --graph
+  lgo = log --graph --oneline --all --decorate
+  l =  log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  cp = cherry-pick
+  m  = merge
+  p  = pull
+  re = rebase
+  rc = rebase --continue
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  lasttag = "!git tag -v `git describe | sed s#-.*##`"
+  wip = commit -am wip
+  pop = reset HEAD^
+  g = "grep --break --heading -i"
+[push]
+  default = tracking
+[branch]
+  autosetuprebase = remote
+[instaweb]
+  httpd = webrick
+[merge]
+  tool = opendiff
+  log = true
+  stat = true
+[grep]
+  lineNumber = true
+  extendRegexp = true
+[tig]
+  show-date = yes
+  line-graphics = yes
+  tab-size = 4
+  show-rev-graph = yes

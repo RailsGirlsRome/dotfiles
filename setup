@@ -5,7 +5,7 @@ target = ENV['HOME']
 
 Dir["#{source}/.*"].each do |file|
   next if File.directory?(file)
-  next if file =~ /(?:\.sw\w|\.gitignore)$/
+  next if file =~ /\.sw\w$/
 
   dest = File.join(target, File.basename(file))
   print "\033[1;32m▶\033[0m #{dest} \033[1;32m→\033[0m #{file} "
