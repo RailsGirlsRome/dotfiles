@@ -3,17 +3,46 @@
 #  - vjt@openssl.it
 #
 
-# Add pry-rails and debugger gems
-gem 'pry-rails'
-gem 'pry-doc'
-gem 'pry-debugger'
-gem 'debugger'
-gem 'hirb'
-gem 'awesome_print'
+##################################################################
+# Check whether we have a "complete" branch on the Git repository,
+# and if yes, configure the remote and fetch the code from there.
+#
+require 'net/http'
+repo = URI.parse("https://github.com/RailsGirlsRome/#{app_name}")
 
-# Spice up the READMEs
-%w[ README.rdoc doc/README_FOR_APP ].each do |f|
-  prepend_to_file f, <<HEART
+http  = Net::HTTP.new(repo.host, repo.port).tap {|x| x.use_ssl = true }
+check = Net::HTTP::Head.new("#{repo.path}") #/tree/complete")
+resp  = http.request(check).code.to_i
+
+fetch = [301, 200].include?(resp)
+
+if fetch
+  git :init
+  git :remote => "add origin #{repo}"
+  git :config => 'branch.master.remote origin'
+  git :config => 'branch.master.merge refs/heads/master'
+  git :fetch => 'origin'
+  git :reset => '--hard origin/master'
+  ## FIXME we are not done yet :-)
+  #git :checkout => '-b complete origin/complete'
+  #git :checkout => 'master'
+
+else
+  ################################################################
+  # Initialize a new app
+  #
+  # Add pry-rails and debugger gems
+  gem 'pry-rails'
+  gem 'pry-doc'
+  gem 'pry-debugger'
+  gem 'debugger'
+  gem 'hirb'
+  gem 'awesome_print'
+
+  # Spice up the READMEs
+  #
+  %w[ README.rdoc doc/README_FOR_APP ].each do |f|
+    prepend_to_file f, <<-HEART
 
                    ***     ***
                  **   ** **   **
@@ -33,20 +62,24 @@ gem 'awesome_print'
 ---------------------------------------------
 HEART
 
-end
+  end
 
-# Git ignores
-append_to_file '.gitignore', <<IGNORE
+  # Add Git ignores
+  #
+  append_to_file '.gitignore', <<-IGNORE
 # Ignore vim and MacOS' finder tmp files
 .*.sw?
 .DS_Store
 
 IGNORE
 
-# Init git repo
-git :init
-git :add => '.'
-git :commit => '-am "♥ Initial commit ♥"'
+  # Init a blank git repo
+  #
+  git :init
+  git :add => '.'
+  git :commit => '-am "♥ Initial commit ♥"'
+end
+
 
 # Greet
 puts
@@ -64,9 +97,14 @@ puts <<HEART
 \033[0m
 HEART
 
-puts "Your application \033[1m#{app_name}\033[0m has been created! :-)"
-puts
-puts "Enter the application folder by typing"
+if fetch
+  puts "The \033[1m#{app_name}\033[0m application has been downloaded! :-)"
+  puts
+else
+  puts "Your application \033[1m#{app_name}\033[0m has been created! :-)"
+  puts
+end
+puts "Enter its root by typing"
 puts
 puts "  \033[1mcd #{app_path}\033[0m"
 puts
