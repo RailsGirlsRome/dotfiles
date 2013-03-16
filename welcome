@@ -12,15 +12,22 @@ configure_git() {
   [ "$user_name" != 'Rails Girl' ] && configured='yay'
 
   if [ "$interactive" -o ! "$configured" ]; then
-    echo -en "\033[1;31m❤\033[0m Can you please tell me your name? "
-    read
-    local _name=$REPLY
+    local _name _mail
+
+    while [ ! "$_name" ]; do
+      echo -en "\033[1;31m❤\033[0m Can you please tell me your name? "
+      read
+      local _name=$REPLY
+    done
+
     echo -e "\033[1;31m❤\033[0m OH! \033[1;37m$_name\033[0m is a very nice name! Thank you! \033[1;33m:-)\033[0m"
     echo
 
-    echo -en "\033[1;31m❤\033[0m May I also know your e-mail? "
-    read
-    local _mail=$REPLY
+    while [ ! "$_mail" ]; do
+      echo -en "\033[1;31m❤\033[0m May I also know your e-mail? "
+      read
+      local _mail=$REPLY
+    done
     echo -e "\033[1;31m❤\033[0m OK, thanks again!"
 
     git config --global user.name  "$_name"
@@ -45,7 +52,7 @@ if [ "$changed" ]; then
   echo -e "\033[1;31m❤\033[0m I've configured this Rails Engine just for you! \033[1;33m:-)\033[0m"
   echo
 
-  if [ !"$interactive" ]; then
+  if [ ! "$interactive" ]; then
     echo "If you want to configure again, type:"
     echo
     echo -e "  \033[1;37mwelcome\033[0m"
