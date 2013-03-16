@@ -23,13 +23,15 @@
 
 ```
 
-= Description
+Description
+-----------
 
 This repo contains the `rc` files that make up the
 customized ruby & rails console, with lots of hearts
 and a clearer exception printer.
 
-= Requirements
+Requirements
+------------
 
 Install the following gems:
 
@@ -39,14 +41,16 @@ Install the following gems:
 * `hirb`
 * `awesome\_print`
 
-= Install
+Install
+-------
 
 * `git clone` this repo into your `~/.railsgirls`
 * Run `~/.railsgirls/setup`
 
 If you see hearts, it worked.
 
-= Caveats
+Caveats
+-------
 
 This installs `~/.pryrc`, `~/.railsrc` and `~/.rails.tpl`,
 so if you already have these files with your customizations,
