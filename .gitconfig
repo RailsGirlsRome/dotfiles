@@ -1,6 +1,6 @@
 [user]
-  email = info@railsgirls.com
-  name = Rails Girls Engine
+  name = Rails Girl
+  email = me@railsgirls.com
 [core]
   whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
   excludesfile=~/.gitignore

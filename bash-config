@@ -68,5 +68,10 @@ alias irb='pry'
 alias Ruby='irb'
 
 alias diff='colordiff -u'
+alias welcome='~/.railsgirls/welcome'
+
+# Run Initial welcome setup
+#
+welcome setup
 
 # vim: ft=sh
