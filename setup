@@ -39,7 +39,7 @@ end
 #
 Dir["#{source}/.*"].each do |file|
   next if File.directory?(file)
-  next if file =~ /\.(?:sw\w|bashrc)$/
+  next if file =~ /\.:sw\w$/
 
   destination = File.join(target, File.basename(file))
   symlink(file, destination)
@@ -47,7 +47,7 @@ end
 
 # Install the bashrc
 #
-source = File.join(source, '.bashrc')
+source = File.join(source, 'bash-config')
 bashrc = File.join(target, '.bashrc')
 token  = '# RailsGirls Setup #'
 if !File.exists? bashrc
