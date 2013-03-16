@@ -1,18 +1,61 @@
 #!/usr/bin/env ruby
 
+RED    = "\033[1;31m"
+GREEN  = "\033[1;32m"
+YELLOW = "\033[1;33m"
+NORMAL = "\033[0m"
+
 source = File.dirname(File.realpath(__FILE__))
 target = ENV['HOME']
 
+def step(message)
+  print "#{GREEN}▶#{NORMAL} #{message} "
+  begin
+    yield
+    heart
+  rescue => e
+    oh_noes(e.message)
+  end
+end
+
+def heart(message = nil)
+  puts "#{RED}❤ #{message}#{NORMAL}"
+end
+
+def oh_noes(message)
+  puts "#{YELLOW}╳ #{message}#{NORMAL}"
+end
+
+def symlink(source, destination)
+  return if File.symlink?(destination) &&
+    File.readlink(destination) == source
+
+  step("#{destination} #{GREEN}→#{NORMAL} #{source}") do
+    File.symlink(source, destination)
+  end
+end
+
+# Symlink files
+#
 Dir["#{source}/.*"].each do |file|
   next if File.directory?(file)
-  next if file =~ /\.sw\w$/
+  next if file =~ /\.(?:sw\w|bashrc)$/
 
-  dest = File.join(target, File.basename(file))
-  print "\033[1;32m▶\033[0m #{dest} \033[1;32m→\033[0m #{file} "
-  begin
-    File.symlink(file, dest)
-    puts "\033[1;31m❤\033[0m"
-  rescue => e
-    puts "\033[1;33m╳ #{e.message}\033[0m"
+  destination = File.join(target, File.basename(file))
+  symlink(file, destination)
+end
+
+# Install the bashrc
+#
+source = File.join(source, '.bashrc')
+bashrc = File.join(target, '.bashrc')
+token  = '# RailsGirls Setup #'
+if !File.exists? bashrc
+  symlink(source, bashrc)
+elsif (rc = File.read(bashrc)) !~ /#{token}/
+  step("Add #{source} to ~/.bashrc") do
+    File.open(bashrc, 'w+') do |f|
+      f.write(rc << "\n\n#{token}\nsource #{source}\n\n")
+    end
   end
 end

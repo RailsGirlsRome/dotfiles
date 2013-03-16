@@ -47,7 +47,8 @@ Install
 * `git clone` this repo into your `~/.railsgirls`
 * Run `~/.railsgirls/setup`
 
-If you see hearts, it worked.
+If you see hearts, it worked. If you don't see
+anything, the setup is already complete :-)
 
 Caveats
 -------
