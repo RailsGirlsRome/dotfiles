@@ -30,6 +30,8 @@ configure_git() {
 
 }
 
+cat ~/.railsgirls/banner
+
 echo
 echo
 echo -e "\033[1;31m❤ ❤ ❤\033[0m Welcome $user_name! \033[1;31m❤ ❤ ❤\033[0m"
