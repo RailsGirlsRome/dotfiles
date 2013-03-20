@@ -25,12 +25,12 @@ if fetch_from_railsgirls
   git :config => 'branch.master.merge refs/heads/master'
   git :fetch => 'origin'
   git :reset => '--hard origin/master'
+  git :clean => '-f'
   ## FIXME we are not done yet :-)
   #git :checkout => '-b complete origin/complete'
   #git :checkout => 'master'
 
   run 'bundle'
-  run 'rm public/index.html'
   rake 'db:setup'
 
 else
