@@ -14,9 +14,11 @@ http  = Net::HTTP.new(repo.host, repo.port).tap {|x| x.use_ssl = true }
 check = Net::HTTP::Head.new("#{repo.path}") #/tree/complete")
 resp  = http.request(check).code.to_i
 
-fetch = [301, 200].include?(resp)
+fetch_from_railsgirls = [301, 200].include?(resp)
 
-if fetch
+if fetch_from_railsgirls
+  # OK, fetch and setup the app from our repo
+  #
   git :init
   git :remote => "add origin #{repo}"
   git :config => 'branch.master.remote origin'
@@ -101,18 +103,26 @@ puts <<HEART
 \033[0m
 HEART
 
-if fetch
+if fetch_from_railsgirls
   puts "The \033[1m#{app_name}\033[0m application has been downloaded! :-)"
-  puts
 else
   puts "Your application \033[1m#{app_name}\033[0m has been created! :-)"
-  puts
 end
-puts "Enter its root by typing"
+puts
+puts "Enter its directory by typing"
 puts
 puts "  \033[1mcd #{app_path}\033[0m"
 puts
-puts "and let's get started! :-)"
-puts
+
+if fetch_from_railsgirls
+  puts "start it using"
+  puts
+  puts "  \033[1mrails server\033[0m"
+  puts
+  puts "and visit \033[1;34mhttp://localhost:3000/\033[0m to use it!"
+  puts
+else
+  puts "and let's get started!"
+end
 
 # vim: ft=ruby
