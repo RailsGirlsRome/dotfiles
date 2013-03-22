@@ -45,6 +45,16 @@ if fetch_from_railsgirls
   # Setup the database
   rake 'db:setup'
 
+  # Precompile assets to speed up the first request to the app.
+  # Better to make participants wait during the setup phaese of
+  # the app, rather than having them stare at a blank page in
+  # the browser. :-)
+  rake 'assets:precompile RAILS_ENV=development'
+
+  # Remove these artifacts, or this will have precedence over
+  # the changes that we make during coaching.
+  run 'rm -rf tmp/assets'
+
 else
   ################################################################
   # Initialize a new app
