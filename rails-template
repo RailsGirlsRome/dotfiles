@@ -17,6 +17,22 @@ resp  = http.request(check).code.to_i
 fetch_from_railsgirls = [301, 200].include?(resp)
 
 if fetch_from_railsgirls
+  puts <<-HEART
+  \033[1;31m
+
+                       ***
+                     **   **
+                    *       *
+                            *
+                           *
+
+
+
+
+
+  \033[0m
+  HEART
+
   # OK, fetch and setup the app from our repo
   #
   git :init
@@ -42,8 +58,40 @@ if fetch_from_railsgirls
   # Install gems
   run 'bundle'
 
+  puts <<-HEART
+  \033[1;31m
+
+                       ***
+                     **   **
+                    *       *
+                            *
+                           *
+                         **
+                       **
+                     **
+                    *
+
+  \033[0m
+  HEART
+
   # Setup the database
   rake 'db:setup'
+
+  puts <<-HEART
+  \033[1;31m
+
+                       ***
+                     **   **
+                    *       *
+                            *
+                           *
+              **         **
+                **     **
+                  ** **
+                    *
+
+  \033[0m
+  HEART
 
   # Precompile assets to speed up the first request to the app.
   # Better to make participants wait during the setup phaese of
@@ -112,7 +160,18 @@ end
 # Greet
 puts
 puts <<HEART
+
+\033[1;32m
+
+         ____                   _
+        |  _ \\  ___  _ __   ___| |
+        | | | |/ _ \\| '_ \\ / _ \\ |
+        | |_| | (_) | | | |  __/_|
+        |____/ \\___/|_| |_|\\___(_)
+
+
 \033[1;31m
+
                ***     ***
              **   ** **   **
             *       *       *
@@ -122,6 +181,9 @@ puts <<HEART
                 **     **
                   ** **
                     *
+
+
+
 \033[0m
 HEART
 
