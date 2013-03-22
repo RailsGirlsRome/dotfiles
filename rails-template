@@ -21,16 +21,28 @@ if fetch_from_railsgirls
   #
   git :init
   git :remote => "add origin #{repo}"
-  git :config => 'branch.master.remote origin'
-  git :config => 'branch.master.merge refs/heads/master'
-  git :fetch => 'origin'
-  git :reset => '--hard origin/master'
-  git :clean => '-f'
-  ## FIXME we are not done yet :-)
-  #git :checkout => '-b complete origin/complete'
-  #git :checkout => 'master'
 
+  # Fetch code from RailsGirls repo
+  git :fetch => 'origin'
+
+  # Put master on the remote one, that'll contain the app prepared
+  # for the event. Namely, most HTML and CSS and JS already setup,
+  # but without the Ruby code we want to implement during coaching
+  git :reset => '--hard origin/master'
+  git :clean => '-fd'
+
+  # Now switch to the "complete" branch, containing a fully working
+  # instance of the app. Before coaching, we show the participants
+  # what we'll want to achieve, and then we switch to master and
+  # actually implement it!
+  git :checkout => '-b complete'
+  git :reset => '--hard origin/complete'
+  git :clean => '-fd'
+
+  # Install gems
   run 'bundle'
+
+  # Setup the database
   rake 'db:setup'
 
 else
