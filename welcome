@@ -49,11 +49,11 @@ configure_git
 
 if [ "$changed" ]; then
   echo
-  echo -e "\033[1;31m❤\033[0m I've configured this Rails Engine just for you! \033[1;33m:-)\033[0m"
+  echo -e "\033[1;31m❤\033[0m The Rails Engine is now customized, just for you! \033[1;33m:-)\033[0m"
   echo
 
   if [ ! "$interactive" ]; then
-    echo "If you want to configure again, type:"
+    echo "If you want to customize again, type:"
     echo
     echo -e "  \033[1;37mwelcome\033[0m"
     echo
